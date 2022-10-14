@@ -3,11 +3,26 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredients/ingredient";
 import PropTypes from "prop-types";
 import styles from "./burger-ingredients.module.css";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 
 
 function BurgerIngredients({ingredients}) {
   const [current, setCurrent] = useState("bun");
+  const [isIngredientInfoOpened, setisIngredientInfoOpened] = useState(false);
+  const [ingredientInfo, setIngredeintInfo] = useState(null);
+  const openModal = (ingredient)=>{
+    setisIngredientInfoOpened(true);
+    setIngredeintInfo(ingredient);
+  }
+  const closeModal = () => {
+    setisIngredientInfoOpened(false);
+    setIngredeintInfo(null);
+};
+const handleEscKeydown = (event) => {
+    event.key === "Escape" && closeModal();
+  };
 
   return (
     <section style={{justifySelf: "end"}}>
@@ -33,6 +48,7 @@ function BurgerIngredients({ingredients}) {
                     key={ingredient._id}
                     ingredient={ingredient}
                     count={1}
+                    onIngredientClick={() => openModal(ingredient)}
                     />           
             )}
         </ul>
@@ -45,6 +61,7 @@ function BurgerIngredients({ingredients}) {
                     key={ingredient._id}
                     ingredient={ingredient}
                     count={1}
+                    onIngredientClick={() => openModal(ingredient)}
                     />           
             )}
         </ul>
@@ -59,14 +76,21 @@ function BurgerIngredients({ingredients}) {
                     key={ingredient._id}
                     ingredient={ingredient}
                     count={1}
+                    onIngredientClick={() => openModal(ingredient)}
                     />           
             )}
         </ul>
       </div>
-      
+      {isIngredientInfoOpened && (
+        <Modal closeModal={closeModal} onEscKeydown={handleEscKeydown} onOverlayClick={closeModal}>
+            <IngredientDetails ingredient={ingredientInfo}/>
+        </Modal>
+          
+        )}
         
       
     </section>
+    
   );
 }
 

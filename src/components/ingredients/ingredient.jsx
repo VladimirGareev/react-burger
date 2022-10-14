@@ -5,9 +5,9 @@ import {
   import styles from "./ingredient.module.css";
   import PropTypes from "prop-types";
   
-  function Ingredient ({ingredient, count}) {
+  function Ingredient ({ingredient, count, onIngredientClick}) {
     return (
-      <li className={styles.card} >
+      <li className={styles.card} onClick={onIngredientClick}>
         <img className={`${styles.image} mr-4 ml-4`} 
           src={ingredient.image}
           alt={ingredient.name} 

@@ -4,20 +4,20 @@ import styles from "./burger-constructor.module.css";
 
 const BurgerConstructor = (props) => {
 
+    const bun = props.ingredients.find(
+        (ingredient) => ingredient._id === "60d3b41abdacab0026a733c6"
+      );
   
   return (
     <section className={`${styles.burgerConstructor} pt-25 pr-4 pl-4`}>
       <div className={styles.container}>
         <div className="ml-8">
-          <ConstructorElement
+          <ConstructorElement 
             type="top"
             isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={200}
-            thumbnail={
-              props.ingredients.find((ingredient) =>
-                ingredient._id === "60666c42cc7b410027a1a9b1"
-              ).image}
+            text={bun.name}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
         <ul className={styles.list}>
@@ -39,12 +39,9 @@ const BurgerConstructor = (props) => {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={
-              props.ingredients.find((ingredient) =>
-                ingredient._id === "60666c42cc7b410027a1a9b1"
-              ).image}
+            text={bun.name}
+            price={bun.price}
+            thumbnail={bun.image}
           />
         </div>
       </div>

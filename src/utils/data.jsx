@@ -212,6 +212,9 @@ const ingredientList = [
 ] 
 
 const selectedIngredients =  [
+
+
+    
         {
           "_id": "60666c42cc7b410027a1a9b9",
           "name": "Соус традиционный галактический",
@@ -326,7 +329,8 @@ const selectedIngredients =  [
         }
       ]
 
+const currentUrl = "https://norma.nomoreparties.space/api/ingredients"
 
+export {ingredientList, selectedIngredients, currentUrl};
 
-export {ingredientList, selectedIngredients};
 
