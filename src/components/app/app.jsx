@@ -2,7 +2,7 @@ import styles from './app.module.css'
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import {ingredientList, selectedIngredients} from '../../utils/data';
+import {selectedIngredients} from '../../utils/data';
 import {currentUrl} from '../../utils/data';
 import { Api } from '../../utils/api';
 import { useEffect, useState } from 'react';
@@ -15,8 +15,7 @@ const App = () => {
 
 const getIngredients = ()=>{
     newApi.getInfo().then((res) => {
-      console.log(res.data)
-      setIngredints(res.data);
+       setIngredints(res.data);
   })
 }
 
@@ -25,14 +24,14 @@ useEffect(()=>{
 }, [])
 
   return (
-    <>
+    <div className={styles.page}>
       <AppHeader />
       {ingredients.length &&(
       <main className={styles.main}>
-          <BurgerIngredients ingredients={ingredients} />
+          <BurgerIngredients ingredients={ingredients} selectedIngredients={selectedIngredients}/>
           <BurgerConstructor ingredients={ingredients} selectedIngredients={selectedIngredients}/>
         </main>)}
-    </>
+    </div>
   );
 };
 
