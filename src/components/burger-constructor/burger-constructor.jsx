@@ -33,10 +33,7 @@ const BurgerConstructor = (props) => {
     setIsOrderDetailsOpened(false);
   };
 
-  const handleEscKeydown = (event) => {
-    event.key === "Escape" && closeModal();
-  };
-
+ 
   return (
     <section className={`${styles.burgerConstructor} pt-25 pr-4 pl-4`}>
       <div className={styles.container}>
@@ -90,7 +87,6 @@ const BurgerConstructor = (props) => {
       {isOrderDetailsOpened && (
         <Modal
           closeModal={closeModal}
-          onEscKeydown={handleEscKeydown}
           onOverlayClick={closeModal}
         >
           <OrderDetails />

@@ -19,9 +19,7 @@ function BurgerIngredients({ ingredients, selectedIngredients }) {
     setisIngredientInfoOpened(false);
     setIngredeintInfo(null);
   };
-  const handleEscKeydown = (event) => {
-    event.key === "Escape" && closeModal();
-  };
+
 
   const countValue = (ingredient) => {
     if (ingredient.type !== "bun") {
@@ -39,17 +37,26 @@ function BurgerIngredients({ ingredients, selectedIngredients }) {
 
   const setCurrentBun = (e) => {
     setCurrent(e);
-    bunRef.current.scrollIntoView({ behavior: "smooth" });
+    const offSetPosition = bunRef.current.getBoundingClientRect().top - bunRef.current.parentNode.offsetTop;
+    bunRef.current.parentNode.scrollBy({ 
+        top: offSetPosition,
+        behavior: "smooth" });
   };
 
   const setCurrentSauce = (e) => {
     setCurrent(e);
-    sauceRef.current.scrollIntoView({ behavior: "smooth" });
+    const offSetPosition = sauceRef.current.getBoundingClientRect().top - sauceRef.current.parentNode.offsetTop;
+    sauceRef.current.parentNode.scrollBy({ 
+        top: offSetPosition,
+        behavior: "smooth" });
   };
 
   const setCurrentMain = (e) => {
     setCurrent(e);
-    mainRef.current.scrollIntoView({ behavior: "smooth" });
+    const offSetPosition = mainRef.current.getBoundingClientRect().top - mainRef.current.parentNode.offsetTop;
+    mainRef.current.parentNode.scrollBy({ 
+        top: offSetPosition,
+        behavior: "smooth" });
   };
 
   return (
@@ -124,7 +131,6 @@ function BurgerIngredients({ ingredients, selectedIngredients }) {
       {isIngredientInfoOpened && (
         <Modal
           closeModal={closeModal}
-          onEscKeydown={handleEscKeydown}
           onOverlayClick={closeModal}
         >
           <IngredientDetails ingredient={ingredientInfo} />

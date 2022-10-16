@@ -9,8 +9,13 @@ import PropTypes from "prop-types";
 
 const modalsContainer = document.querySelector('#modals');
 
-const Modal = ({ onOverlayClick, onEscKeydown, children, closeModal}) => {
+const Modal = ({ onOverlayClick, children, closeModal}) => {
  
+  const onEscKeydown = (event) => {
+    event.key === "Escape" && closeModal();
+  }
+  
+  
   useEffect(() => {
     document.addEventListener('keydown', onEscKeydown);
 
@@ -41,7 +46,6 @@ const Modal = ({ onOverlayClick, onEscKeydown, children, closeModal}) => {
 Modal.propTypes = {
     onOverlayClick: PropTypes.func.isRequired,
     closeModal: PropTypes.func.isRequired,
-    onEscKeydown: PropTypes.func.isRequired,
     children: PropTypes.element.isRequired,
   };
 
