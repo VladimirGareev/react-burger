@@ -16,8 +16,9 @@ const App = () => {
 const getIngredients = ()=>{
     newApi.getInfo().then((res) => {
        setIngredints(res.data);
-  })
+  }).catch((err) =>{console.log(err)})
 }
+
 
 useEffect(()=>{
   getIngredients();

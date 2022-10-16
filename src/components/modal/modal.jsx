@@ -22,7 +22,7 @@ const Modal = ({ onOverlayClick, children, closeModal}) => {
     return () => {
       document.removeEventListener('keydown', onEscKeydown);
     };
-  }, []);
+  },);
 
   
   return createPortal(
