@@ -8,22 +8,26 @@ import {
 import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ingredient } from "../../utils/data";
+import { BurgerSelectedContext } from "../../utils/burger-context";
 
-const BurgerConstructor = (props) => {
-  const bun = props.ingredients.find(
-    (ingredient) => ingredient._id === "60d3b41abdacab0026a733c6"
-  );
+const BurgerConstructor = () => {
+  
+  const [selectedIngredients, burgerDispatcher] = useContext(BurgerSelectedContext)
+  const bun = selectedIngredients.bun
+  
 
   const [isOrderDetailsOpened, setIsOrderDetailsOpened] = useState(false);
 
-  const price =
-    bun.price * 2 +
-    props.selectedIngredients.reduce(
-      (sum, ingredient) => sum + ingredient.price,
-      0
-    );
+   const bunPrice = selectedIngredients.bun ? selectedIngredients.bun.price*2 : 0;
+   const ingredientsPrice = selectedIngredients.ingredients.length === 0 ? 0 : (
+     selectedIngredients.ingredients.reduce(
+     (sum, ingredient) => sum + ingredient.price,
+     0
+    ));
+
+    const price = bunPrice + ingredientsPrice;
 
   const openModal = () => {
     setIsOrderDetailsOpened(true);
@@ -33,22 +37,25 @@ const BurgerConstructor = (props) => {
     setIsOrderDetailsOpened(false);
   };
 
+  const trigger = selectedIngredients.ingredients.length||selectedIngredients.bun
+  
+
  
-  return (
+  return ( trigger &&
     <section className={`${styles.burgerConstructor} pt-25 pr-4 pl-4`}>
       <div className={styles.container}>
-        <div className="ml-8">
+        <div className="ml-8"> {bun &&
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={bun.name}
+            text={`${bun.name} верх`}
             price={bun.price}
             thumbnail={bun.image}
-          />
+          />}
         </div>
         <ul className={styles.list}>
-          {props.selectedIngredients.map((ingredient, index) => {
-            return (
+          {selectedIngredients.ingredients.filter(item=> item.type!=='bun').map((ingredient, index) => {
+              return (
               <li className={styles.item} key={index}>
                 <DragIcon type="primary" />
                 <ConstructorElement
@@ -56,18 +63,17 @@ const BurgerConstructor = (props) => {
                   price={ingredient.price}
                   thumbnail={ingredient.image}
                 />
-              </li>
-            );
+              </li>)      
           })}
         </ul>
-        <div className="ml-8">
+        <div className="ml-8"> {bun &&
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={bun.name}
+            text={`${bun.name} низ`}
             price={bun.price}
             thumbnail={bun.image}
-          />
+          />}
         </div>
       </div>
       <div className={`${styles.arrangeContainer} mt-10 pr-4`}>

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredients/ingredient";
 import PropTypes from "prop-types";
@@ -6,29 +6,47 @@ import styles from "./burger-ingredients.module.css";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { ingredient } from "../../utils/data";
+import {
+  BurgerContext,
+  BurgerSelectedContext,
+} from "../../utils/burger-context";
 
-function BurgerIngredients({ ingredients, selectedIngredients }) {
+function BurgerIngredients() {
+  const ingredients = useContext(BurgerContext);
+
+  const [selectedIngredients, burgerDispatcher] = useContext(
+    BurgerSelectedContext
+  );
+
   const [current, setCurrent] = useState("bun");
   const [isIngredientInfoOpened, setisIngredientInfoOpened] = useState(false);
   const [ingredientInfo, setIngredeintInfo] = useState(null);
   const openModal = (ingredient) => {
     setisIngredientInfoOpened(true);
     setIngredeintInfo(ingredient);
+    burgerDispatcher({
+      type: "ADD",
+      payload: ingredient,
+    });
   };
   const closeModal = () => {
     setisIngredientInfoOpened(false);
     setIngredeintInfo(null);
   };
 
-
   const countValue = (ingredient) => {
     if (ingredient.type !== "bun") {
-      const countNumber = selectedIngredients.filter(
+      const countNumber = selectedIngredients.ingredients.filter(
         (item) => item.name === ingredient.name
       );
       return countNumber.length;
+    } else {
+      if (selectedIngredients.bun) {
+        return ingredient.name === selectedIngredients.bun.name ? 2 : 0;
+      } else {
+        return 0;
+      }
     }
-    return ingredient.name === "Краторная булка N-200i" ? 2 : 0;
   };
 
   const bunRef = useRef(null);
@@ -37,26 +55,35 @@ function BurgerIngredients({ ingredients, selectedIngredients }) {
 
   const setCurrentBun = (e) => {
     setCurrent(e);
-    const offSetPosition = bunRef.current.getBoundingClientRect().top - bunRef.current.parentNode.offsetTop;
-    bunRef.current.parentNode.scrollBy({ 
-        top: offSetPosition,
-        behavior: "smooth" });
+    const offSetPosition =
+      bunRef.current.getBoundingClientRect().top -
+      bunRef.current.parentNode.offsetTop;
+    bunRef.current.parentNode.scrollBy({
+      top: offSetPosition,
+      behavior: "smooth",
+    });
   };
 
   const setCurrentSauce = (e) => {
     setCurrent(e);
-    const offSetPosition = sauceRef.current.getBoundingClientRect().top - sauceRef.current.parentNode.offsetTop;
-    sauceRef.current.parentNode.scrollBy({ 
-        top: offSetPosition,
-        behavior: "smooth" });
+    const offSetPosition =
+      sauceRef.current.getBoundingClientRect().top -
+      sauceRef.current.parentNode.offsetTop;
+    sauceRef.current.parentNode.scrollBy({
+      top: offSetPosition,
+      behavior: "smooth",
+    });
   };
 
   const setCurrentMain = (e) => {
     setCurrent(e);
-    const offSetPosition = mainRef.current.getBoundingClientRect().top - mainRef.current.parentNode.offsetTop;
-    mainRef.current.parentNode.scrollBy({ 
-        top: offSetPosition,
-        behavior: "smooth" });
+    const offSetPosition =
+      mainRef.current.getBoundingClientRect().top -
+      mainRef.current.parentNode.offsetTop;
+    mainRef.current.parentNode.scrollBy({
+      top: offSetPosition,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -129,10 +156,7 @@ function BurgerIngredients({ ingredients, selectedIngredients }) {
         </ul>
       </div>
       {isIngredientInfoOpened && (
-        <Modal
-          closeModal={closeModal}
-          onOverlayClick={closeModal}
-        >
+        <Modal closeModal={closeModal} onOverlayClick={closeModal}>
           <IngredientDetails ingredient={ingredientInfo} />
         </Modal>
       )}
