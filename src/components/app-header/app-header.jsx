@@ -1,4 +1,6 @@
-{/*TODO файл полностью игнорируется lint во избежание появления ошибок от пустых якорных ссылок */}
+{
+  /*TODO файл полностью игнорируется lint во избежание появления ошибок от пустых якорных ссылок */
+}
 
 import {
   Logo,
@@ -14,7 +16,7 @@ function AppHeader() {
       <nav className={styles.container}>
         <ul className={styles.list}>
           <li className="pt-4 pr-5 pb-4 pl-5 mr-2">
-            <a href="#" className={styles.link}> 
+            <a href="#" className={styles.link}>
               <BurgerIcon type="primary" />
               <p className="text text_type_main-default ml-2">Конструктор</p>
             </a>

@@ -1,11 +1,9 @@
 import { useState, useRef, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredients/ingredient";
-import PropTypes from "prop-types";
 import styles from "./burger-ingredients.module.css";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { ingredient } from "../../utils/data";
 import {
   BurgerContext,
   BurgerSelectedContext,
@@ -163,10 +161,5 @@ function BurgerIngredients() {
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredient).isRequired,
-  selectedIngredients: PropTypes.arrayOf(ingredient).isRequired,
-};
 
 export default BurgerIngredients;

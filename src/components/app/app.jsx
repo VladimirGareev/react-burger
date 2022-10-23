@@ -2,7 +2,6 @@ import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-//import { selectedIngredients } from "../../utils/data";
 import { currentUrl } from "../../utils/data";
 import { Api } from "../../utils/api";
 import React, { useEffect, useState, useReducer } from "react";
@@ -31,11 +30,11 @@ const App = () => {
     getIngredients();
   }, []);
 
-  const initialBurgerState ={ingredients: []};
+  const initialBurgerState = { ingredients: [] };
 
-//TODO: default case in reducer to be adressed
+  //TODO: default case in reducer to be adressed
 
-  function reducer (state, action) {
+  function reducer(state, action) {
     switch (action.type) {
       case "ADD":
         if (action.payload.type === "bun") {
@@ -46,14 +45,17 @@ const App = () => {
         } else {
           return {
             ...state,
-            ingredients: [action.payload, ...state.ingredients]
-          };
+            ingredients: [action.payload, ...state.ingredients],
           };
         }
     }
-  
+  }
 
-  const [selectedIngredients, burgerDispatcher] = useReducer(reducer, initialBurgerState, undefined);
+  const [selectedIngredients, burgerDispatcher] = useReducer(
+    reducer,
+    initialBurgerState,
+    undefined
+  );
 
   return (
     <div className={styles.page}>
@@ -61,12 +63,10 @@ const App = () => {
       {ingredients.length && (
         <main className={styles.main}>
           <BurgerContext.Provider value={ingredients}>
-            <BurgerSelectedContext.Provider value={[selectedIngredients, burgerDispatcher]}>
-            <BurgerIngredients
-            //ingredients={ingredients}
-            //selectedIngredients={selectedIngredients}
-          />
-          
+            <BurgerSelectedContext.Provider
+              value={[selectedIngredients, burgerDispatcher]}
+            >
+              <BurgerIngredients />
               <BurgerConstructor />
             </BurgerSelectedContext.Provider>
           </BurgerContext.Provider>

@@ -13,4 +13,14 @@ export class Api {
   getInfo() {
     return fetch(`${this.baseUrl}`).then(this._checkResponse);
   }
+
+  getOrder(data) {
+    return fetch(this.baseUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ingredients: data }),
+    }).then(this._checkResponse);
+  }
 }

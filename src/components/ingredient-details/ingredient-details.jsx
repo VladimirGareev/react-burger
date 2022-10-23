@@ -1,7 +1,6 @@
 import styles from "./ingredient-details.module.css";
 import PropTypes from "prop-types";
 
-
 const IngredientDetails = ({ ingredient }) => {
   return (
     <div className={`${styles.container} mt-15 mb-15 ml-10 mr-10`}>
@@ -48,7 +47,7 @@ IngredientDetails.propTypes = {
     image_mobile: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
     __v: PropTypes.number.isRequired,
-  })
+  }),
 };
 
 export default IngredientDetails;
