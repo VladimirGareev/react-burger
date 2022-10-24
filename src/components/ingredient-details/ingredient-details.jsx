@@ -35,7 +35,7 @@ const IngredientDetails = ({ ingredient }) => {
 };
 
 IngredientDetails.propTypes = {
-  ingredient: PropTypes.instanceOf(ingredient),
+  ingredient: PropTypes.oneOfType([ingredient]),
 };
 
 export default IngredientDetails;
