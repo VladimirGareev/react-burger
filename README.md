@@ -1,7 +1,5 @@
 # Getting Started with Create React App
 
-The completed project could be found on https://vladimirgareev.github.io/react-burger/
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
