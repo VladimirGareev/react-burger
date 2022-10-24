@@ -7,7 +7,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import {
   BurgerContext,
   BurgerSelectedContext,
-} from "../../utils/burger-context";
+} from "../../context/burger-context";
 
 function BurgerIngredients() {
   const ingredients = useContext(BurgerContext);
