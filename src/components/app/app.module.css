@@ -1,0 +1,13 @@
+.page {
+  display: flex;
+  justify-content: center;
+  background-color: #131316;
+  flex-direction: column;
+  justify-items: center;
+}
+.main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+  justify-content: center;
+}

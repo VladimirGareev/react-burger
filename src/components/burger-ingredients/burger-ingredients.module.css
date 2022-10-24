@@ -1,0 +1,27 @@
+.burgerContainer {
+  max-height: 720px;
+  overflow-y: scroll;
+  margin-top: 48px;
+  max-width: 600px;
+}
+
+.burgerContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.burgerContainer::-webkit-scrollbar-track {
+  background: #2f2f37;
+  height: 664px;
+}
+
+.burgerContainer::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  height: 492px;
+}
+
+.ingredientSet {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 24px;
+  padding: 0;
+}
