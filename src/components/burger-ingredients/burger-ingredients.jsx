@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   SET_INGREDIENT_MODAL,
   RESET_INGREDIENT_MODAL,
-  CONSTRUCTOR_ADD,
 } from "../../services/constants";
 
 
@@ -28,7 +27,6 @@ function BurgerIngredients() {
 
   const openModal = (ingredient) => {
     dispatch({ type: SET_INGREDIENT_MODAL, payload: ingredient });
-    dispatch({ type: CONSTRUCTOR_ADD, payload: ingredient });
   };
   const closeModal = () => {
     dispatch({ type: RESET_INGREDIENT_MODAL });
@@ -116,9 +114,9 @@ function BurgerIngredients() {
   }, [inViewBuns, inViewFilling, inViewSauces]);
 
   return (
-    <section style={{ justifySelf: "end" }}>
+    <section  className={styles.burgerSection}>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
-      <nav style={{ display: "flex" }}>
+      <div className={styles.burgerNav}>
         <Tab value="bun" active={current === "bun"} onClick={setCurrentBun}>
           Булки
         </Tab>
@@ -132,7 +130,7 @@ function BurgerIngredients() {
         <Tab value="main" active={current === "main"} onClick={setCurrentMain}>
           Начинки
         </Tab>
-      </nav>
+      </div>
       <div className={styles.burgerContainer}>
         <h2 id="bun" className="text text_type_main-medium" ref={bunRef}>
           Булки

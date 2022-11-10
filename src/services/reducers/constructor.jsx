@@ -2,6 +2,7 @@ import {
   CONSTRUCTOR_ADD,
   CONSTRUCTOR_DELETE,
   CONSTRUCTOR_REORDER,
+  CONSTRUCTOR_RESET
 } from "../constants";
 
 const burgerInitialState = {
@@ -40,6 +41,12 @@ const constructorBurger = (state = burgerInitialState, action) => {
         ...state,
         ingredients: action.payload,
       };
+      case CONSTRUCTOR_RESET:
+        return {
+          ...state,
+          ingredients: [],
+          bun: null
+        };
     default: {
       return state;
     }

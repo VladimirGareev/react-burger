@@ -1,4 +1,6 @@
-export class Api {
+import { currentUrl } from "./data";
+
+ class Api {
   constructor({ baseUrl }) {
     this.baseUrl = baseUrl;
   }
@@ -11,11 +13,11 @@ export class Api {
   }
 
   getInfo() {
-    return fetch(`${this.baseUrl}`).then(this._checkResponse);
+    return fetch(`${this.baseUrl}ingredients`).then(this._checkResponse);
   }
 
   getOrder(data) {
-    return fetch(this.baseUrl, {
+    return fetch(`${this.baseUrl}orders`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,3 +26,5 @@ export class Api {
     }).then(this._checkResponse);
   }
 }
+
+export const newApi = new Api({ baseUrl: currentUrl });

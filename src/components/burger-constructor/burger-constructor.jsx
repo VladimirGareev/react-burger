@@ -15,7 +15,7 @@ import {
 } from "../../services/constants";
 import { useDrop } from "react-dnd";
 import SelectedComponent from "../selected-component/selected-component";
-
+//TODO: align loader at the center of the screen
 const BurgerConstructor = () => {
   const selectedIngredients = useSelector((state) => state.constructorBurger);
   const dispatch = useDispatch();
@@ -39,6 +39,7 @@ const BurgerConstructor = () => {
   const orderList = bun ? ingredientList.concat(bun._id) : ingredientList;
 
   const order = useSelector((state) => state.order.order);
+  const orderIsLoading = useSelector((state) => state.order.isLoading);
 
   const isOrderDetailsOpened = useSelector(
     (state) => state.order.isOrderModalOpen
@@ -71,11 +72,18 @@ const BurgerConstructor = () => {
   const closeModal = () => {
     dispatch({ type: RESET_ORDER_MODAL });
   };
+  const emptyStyle =
+    price === 0
+      ? {
+          border: "1px dotted grey",
+        }
+      : {};
 
   return (
     <section
       className={`${styles.burgerConstructor} pt-25 pr-4 pl-4`}
       ref={dropTarget}
+      style={emptyStyle}
     >
       <div className={styles.container}>
         <div className="ml-8">
@@ -90,17 +98,23 @@ const BurgerConstructor = () => {
             />
           )}
         </div>
-        <ul className={styles.list}>
-          {selectedIngredients.ingredients
-            .filter((item) => item.type !== "bun")
-            .map((ingredient, index) => (
-              <SelectedComponent
-                ingredient={ingredient}
-                index={index}
-                key={ingredient.id}
-              ></SelectedComponent>
-            ))}
-        </ul>
+        {price !== 0 ? (
+          <ul className={styles.list}>
+            {selectedIngredients.ingredients
+              .filter((item) => item.type !== "bun")
+              .map((ingredient, index) => (
+                <SelectedComponent
+                  ingredient={ingredient}
+                  index={index}
+                  key={ingredient.id}
+                ></SelectedComponent>
+              ))}
+          </ul>
+        ) : (
+          <div className={`${styles.emptyContainer} text_type_main-medium`}>
+            Перетащите понравившиеся ингредиенты в контейнер
+          </div>
+        )}
         <div className="ml-8">
           {" "}
           {bun && (
@@ -124,15 +138,19 @@ const BurgerConstructor = () => {
           type="primary"
           size="large"
           onClick={openModal}
+          disabled={price === 0}
         >
           Оформить заказ
         </Button>
       </div>
-      {isOrderDetailsOpened && order && (
-        <Modal closeModal={closeModal} onOverlayClick={closeModal}>
-          <OrderDetails order={order} />
-        </Modal>
-      )}
+      {isOrderDetailsOpened &&
+        (orderIsLoading ? (
+          <div className={styles.ldsdualring}></div>
+        ) : (
+          <Modal closeModal={closeModal}>
+            <OrderDetails order={order} />
+          </Modal>
+        ))}
     </section>
   );
 };

@@ -2,25 +2,25 @@ import {
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_SUCCESS,
   CREATE_ORDER_FAILED,
+  CONSTRUCTOR_RESET,
 } from "../constants";
 
-import { Api } from "../../utils/api";
-
-const orderApi = new Api({
-  baseUrl: "https://norma.nomoreparties.space/api/orders",
-});
+import { newApi } from "../../utils/api";
 
 export const orderBurger = (orderData) => (dispatch) => {
   dispatch({
     type: CREATE_ORDER_REQUEST,
   });
-  return orderApi
+  return newApi
     .getOrder(orderData)
     .then((res) => {
       dispatch({
         type: CREATE_ORDER_SUCCESS,
         payload: res,
       });
+      dispatch({
+        type: CONSTRUCTOR_RESET,
+      })
     })
     .catch((err) => {
       dispatch({

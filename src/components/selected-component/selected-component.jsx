@@ -73,7 +73,6 @@ const SelectedComponent = ({ ingredient, index }) => {
   return (
     <li
       className={styles.item}
-      key={index}
       ref={ref}
       data-handler-id={handlerId}
       style={{ opacity }}

@@ -3,10 +3,7 @@ import {
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
 } from "../constants";
-import { currentUrl } from "../../utils/data";
-import { Api } from "../../utils/api";
-
-const newApi = new Api({ baseUrl: currentUrl });
+import { newApi } from "../../utils/api";
 
 export const getIngredients = () => (dispatch) => {
   dispatch({
