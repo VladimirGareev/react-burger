@@ -8,7 +8,7 @@ import React, { useEffect, useState, useReducer } from "react";
 import {
   BurgerContext,
   BurgerSelectedContext,
-} from "../../utils/burger-context";
+} from "../../context/burger-context";
 
 const newApi = new Api({ baseUrl: currentUrl });
 
@@ -62,14 +62,14 @@ const App = () => {
       <AppHeader />
       {ingredients.length && (
         <main className={styles.main}>
-          <BurgerContext.Provider value={ingredients}>
-            <BurgerSelectedContext.Provider
-              value={[selectedIngredients, burgerDispatcher]}
-            >
+          <BurgerSelectedContext.Provider
+            value={[selectedIngredients, burgerDispatcher]}
+          >
+            <BurgerContext.Provider value={ingredients}>
               <BurgerIngredients />
-              <BurgerConstructor />
-            </BurgerSelectedContext.Provider>
-          </BurgerContext.Provider>
+            </BurgerContext.Provider>
+            <BurgerConstructor />
+          </BurgerSelectedContext.Provider>
         </main>
       )}
     </div>

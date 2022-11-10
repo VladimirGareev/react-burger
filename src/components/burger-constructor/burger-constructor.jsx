@@ -8,7 +8,7 @@ import styles from "./burger-constructor.module.css";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import { useContext, useState } from "react";
-import { BurgerSelectedContext } from "../../utils/burger-context";
+import { BurgerSelectedContext } from "../../context/burger-context";
 import { Api } from "../../utils/api";
 
 const BurgerConstructor = () => {
