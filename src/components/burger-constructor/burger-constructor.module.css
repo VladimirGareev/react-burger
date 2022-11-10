@@ -1,6 +1,8 @@
 .burgerConstructor {
   margin-top: 48px;
   max-width: 600px;
+  min-width: 300px;
+  min-height: 300px;
 }
 
 .container {
@@ -40,12 +42,6 @@
   background: #8585ad;
 }
 
-.item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 8px;
-}
 
 .arrangeContainer {
   display: flex;

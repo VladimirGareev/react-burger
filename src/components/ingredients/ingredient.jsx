@@ -4,10 +4,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredient.module.css";
 import PropTypes from "prop-types";
+import { useDrag } from "react-dnd";
 
 function Ingredient({ ingredient, count, onIngredientClick }) {
+  const [, drag] = useDrag({
+    type: "ingredient",
+    item: ingredient,
+  });
+
   return (
-    <li className={styles.card} onClick={onIngredientClick}>
+    <li className={styles.card} onClick={onIngredientClick} ref={drag}>
       <img
         className={`${styles.image} mr-4 ml-4`}
         src={ingredient.image}

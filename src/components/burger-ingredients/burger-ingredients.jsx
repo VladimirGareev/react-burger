@@ -1,36 +1,46 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredients/ingredient";
 import styles from "./burger-ingredients.module.css";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+
+import { useInView } from "react-intersection-observer";
+
+import { getIngredients } from "../../services/actions/ingredients";
+import { useDispatch, useSelector } from "react-redux";
 import {
-  BurgerContext,
-  BurgerSelectedContext,
-} from "../../context/burger-context";
+  SET_INGREDIENT_MODAL,
+  RESET_INGREDIENT_MODAL,
+  CONSTRUCTOR_ADD,
+} from "../../services/constants";
+
 
 function BurgerIngredients() {
-  const ingredients = useContext(BurgerContext);
+  const dispatch = useDispatch();
 
-  const [selectedIngredients, burgerDispatcher] = useContext(
-    BurgerSelectedContext
-  );
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   const [current, setCurrent] = useState("bun");
-  const [isIngredientInfoOpened, setisIngredientInfoOpened] = useState(false);
-  const [ingredientInfo, setIngredeintInfo] = useState(null);
+
   const openModal = (ingredient) => {
-    setisIngredientInfoOpened(true);
-    setIngredeintInfo(ingredient);
-    burgerDispatcher({
-      type: "ADD",
-      payload: ingredient,
-    });
+    dispatch({ type: SET_INGREDIENT_MODAL, payload: ingredient });
+    dispatch({ type: CONSTRUCTOR_ADD, payload: ingredient });
   };
   const closeModal = () => {
-    setisIngredientInfoOpened(false);
-    setIngredeintInfo(null);
+    dispatch({ type: RESET_INGREDIENT_MODAL });
   };
+
+  const isIngredientInfoOpened = useSelector(
+    (state) => state.ingredient.isOpen
+  );
+
+  const selectedIngredients = useSelector((state) => state.constructorBurger);
+
+  const currentIngredient = useSelector((state) => state.ingredient.ingredient);
 
   const countValue = (ingredient) => {
     if (ingredient.type !== "bun") {
@@ -84,6 +94,27 @@ function BurgerIngredients() {
     });
   };
 
+  const [bunsRef, inViewBuns] = useInView({
+    threshold: 0,
+  });
+
+  const [mainsRef, inViewFilling] = useInView({
+    threshold: 0,
+  });
+  const [saucesRef, inViewSauces] = useInView({
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    if (inViewBuns) {
+      setCurrent("bun");
+    } else if (inViewSauces) {
+      setCurrent("sauce");
+    } else if (inViewFilling) {
+      setCurrent("main");
+    }
+  }, [inViewBuns, inViewFilling, inViewSauces]);
+
   return (
     <section style={{ justifySelf: "end" }}>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
@@ -106,7 +137,7 @@ function BurgerIngredients() {
         <h2 id="bun" className="text text_type_main-medium" ref={bunRef}>
           Булки
         </h2>
-        <ul className={styles.ingredientSet}>
+        <ul className={styles.ingredientSet} ref={bunsRef}>
           {ingredients.map(
             (ingredient) =>
               ingredient.type === "bun" && (
@@ -122,7 +153,7 @@ function BurgerIngredients() {
         <h2 id="sauce" className="text text_type_main-medium" ref={sauceRef}>
           Соусы
         </h2>
-        <ul className={styles.ingredientSet}>
+        <ul className={styles.ingredientSet} ref={saucesRef}>
           {ingredients.map(
             (ingredient) =>
               ingredient.type === "sauce" && (
@@ -139,7 +170,7 @@ function BurgerIngredients() {
         <h2 id="main" className="text text_type_main-medium" ref={mainRef}>
           Начинки
         </h2>
-        <ul className={styles.ingredientSet}>
+        <ul className={styles.ingredientSet} ref={mainsRef}>
           {ingredients.map(
             (ingredient) =>
               ingredient.type === "main" && (
@@ -155,7 +186,7 @@ function BurgerIngredients() {
       </div>
       {isIngredientInfoOpened && (
         <Modal closeModal={closeModal} onOverlayClick={closeModal}>
-          <IngredientDetails ingredient={ingredientInfo} />
+          <IngredientDetails ingredient={currentIngredient} />
         </Modal>
       )}
     </section>
