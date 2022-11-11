@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 const modalsContainer = document.querySelector("#modals");
 
-const Modal = ({ onOverlayClick, children, closeModal }) => {
+const Modal = ({ children, closeModal }) => {
   const onEscKeydown = (event) => {
     event.key === "Escape" && closeModal();
   };
@@ -32,14 +32,13 @@ const Modal = ({ onOverlayClick, children, closeModal }) => {
           <CloseIcon type="primary" />
         </button>
       </div>
-      <ModalOverlay onClick={onOverlayClick} />
+      <ModalOverlay onClick={closeModal} />
     </>,
     modalsContainer
   );
 };
 
 Modal.propTypes = {
-  onOverlayClick: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
 };
