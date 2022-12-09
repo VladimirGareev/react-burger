@@ -17,14 +17,8 @@ const SelectedComponent = ({ ingredient, index }) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
   const id = ingredient.id;
-  const [{ handlerId, dragedIngredient }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: "сonstructor",
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-        dragedIngredient: monitor.getItem(),
-      };
-    },
     hover(item, monitor) {
       if (!ref.current) {
         return;
@@ -74,7 +68,7 @@ const SelectedComponent = ({ ingredient, index }) => {
     <li
       className={styles.item}
       ref={ref}
-      data-handler-id={handlerId}
+      // data-handler-id={handlerId}
       style={{ opacity }}
     >
       <DragIcon type="primary" />
