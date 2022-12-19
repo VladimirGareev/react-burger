@@ -1,6 +1,6 @@
 import { currentUrl } from "./data";
 
- class Api {
+class Api {
   constructor({ baseUrl }) {
     this.baseUrl = baseUrl;
   }
@@ -11,6 +11,13 @@ import { currentUrl } from "./data";
     }
     return Promise.reject(`Ошибка ${res.status}`);
   }
+
+  // _checkResponsePassword (res) {
+  //   if (res.success) {
+  //     history.replace({pathname:'/reset-password'})
+  //   }
+  //   return Promise.reject(`Ошибка ${res.status}`)
+  // }
 
   getInfo() {
     return fetch(`${this.baseUrl}ingredients`).then(this._checkResponse);
@@ -23,6 +30,26 @@ import { currentUrl } from "./data";
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ ingredients: data }),
+    }).then(this._checkResponse);
+  }
+
+  resetPassword(email) {
+    return fetch(`${this.baseUrl}password-reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(email),
+    }).then(this._checkResponse);
+  }
+
+  submitNewPassword(data) {
+    return fetch(`${this.baseUrl}password-reset/reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     }).then(this._checkResponse);
   }
 }

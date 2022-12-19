@@ -2,43 +2,28 @@ import { useState, useRef, useEffect } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredients/ingredient";
 import styles from "./burger-ingredients.module.css";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+
 
 import { useInView } from "react-intersection-observer";
 
-import { getIngredients } from "../../services/actions/ingredients";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  SET_INGREDIENT_MODAL,
-  RESET_INGREDIENT_MODAL,
-} from "../../services/constants";
+import { useSelector } from "react-redux";
 
+
+import { Link, useLocation } from "react-router-dom";
 
 function BurgerIngredients() {
-  const dispatch = useDispatch();
+
+
+  const location = useLocation();
 
   const ingredients = useSelector((state) => state.ingredients.ingredients);
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
   const [current, setCurrent] = useState("bun");
 
-  const openModal = (ingredient) => {
-    dispatch({ type: SET_INGREDIENT_MODAL, payload: ingredient });
-  };
-  const closeModal = () => {
-    dispatch({ type: RESET_INGREDIENT_MODAL });
-  };
 
-  const isIngredientInfoOpened = useSelector(
-    (state) => state.ingredient.isOpen
-  );
 
   const selectedIngredients = useSelector((state) => state.constructorBurger);
 
-  const currentIngredient = useSelector((state) => state.ingredient.ingredient);
 
   const countValue = (ingredient) => {
     if (ingredient.type !== "bun") {
@@ -114,7 +99,7 @@ function BurgerIngredients() {
   }, [inViewBuns, inViewFilling, inViewSauces]);
 
   return (
-    <section  className={styles.burgerSection}>
+    <section className={styles.burgerSection}>
       <h1 className="text text_type_main-large mt-10 mb-5">Соберите бургер</h1>
       <div className={styles.burgerNav}>
         <Tab value="bun" active={current === "bun"} onClick={setCurrentBun}>
@@ -139,12 +124,20 @@ function BurgerIngredients() {
           {ingredients.map(
             (ingredient) =>
               ingredient.type === "bun" && (
-                <Ingredient
+                <Link
+                  to={{
+                    pathname: `/ingredients/${ingredient._id}`,
+                    state: { background: location },
+                  }}
                   key={ingredient._id}
-                  ingredient={ingredient}
-                  count={countValue(ingredient)}
-                  onIngredientClick={() => openModal(ingredient)}
-                />
+                  className={styles.link}
+                >
+                  <Ingredient
+                    ingredient={ingredient}
+                    count={countValue(ingredient)}
+                    // onIngredientClick={() => openModal(ingredient)}
+                  />{" "}
+                </Link>
               )
           )}
         </ul>
@@ -155,12 +148,20 @@ function BurgerIngredients() {
           {ingredients.map(
             (ingredient) =>
               ingredient.type === "sauce" && (
-                <Ingredient
+                <Link
+                  to={{
+                    pathname: `/ingredients/${ingredient._id}`,
+                    state: { background: location },
+                  }}
                   key={ingredient._id}
-                  ingredient={ingredient}
-                  count={countValue(ingredient)}
-                  onIngredientClick={() => openModal(ingredient)}
-                />
+                  className={styles.link}
+                >
+                  <Ingredient
+                    ingredient={ingredient}
+                    count={countValue(ingredient)}
+                    // onIngredientClick={() => openModal(ingredient)}
+                  />
+                </Link>
               )
           )}
         </ul>
@@ -172,21 +173,24 @@ function BurgerIngredients() {
           {ingredients.map(
             (ingredient) =>
               ingredient.type === "main" && (
-                <Ingredient
+                <Link
+                  to={{
+                    pathname: `/ingredients/${ingredient._id}`,
+                    state: { background: location },
+                  }}
                   key={ingredient._id}
-                  ingredient={ingredient}
-                  count={countValue(ingredient)}
-                  onIngredientClick={() => openModal(ingredient)}
-                />
+                  className={styles.link}
+                >
+                  <Ingredient
+                    ingredient={ingredient}
+                    count={countValue(ingredient)}
+                    // onIngredientClick={() => openModal(ingredient)}
+                  />
+                </Link>
               )
           )}
         </ul>
       </div>
-      {isIngredientInfoOpened && (
-        <Modal closeModal={closeModal} onOverlayClick={closeModal}>
-          <IngredientDetails ingredient={currentIngredient} />
-        </Modal>
-      )}
     </section>
   );
 }
