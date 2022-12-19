@@ -11,6 +11,8 @@ import {
   GET_USER,
   GET_USER_SUCCESS,
   GET_USER_FAILED,
+  PASSWORD_FORGOTTEN,
+  PASSWORD_RESTORED
 } from "../constants";
 
 const userInitialState = {
@@ -24,6 +26,7 @@ const userInitialState = {
   logoutUserError: null,
   getUserRequest: false,
   getUserFailed: null,
+  passwordForgotten: false,
 };
 
 const user = (state = userInitialState, action) => {
@@ -111,6 +114,18 @@ const user = (state = userInitialState, action) => {
         getUserRequest: false,
         getUserError: action.payload,
       };
+
+      case PASSWORD_FORGOTTEN:
+        return {
+          ...state,
+          passwordForgotten: true,
+        };
+
+        case PASSWORD_RESTORED:
+          return {
+            ...state,
+            passwordForgotten: false,
+          };
 
     default:
       return state;

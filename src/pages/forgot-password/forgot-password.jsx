@@ -6,8 +6,11 @@ import styles from "./forgot-password.module.css";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { newApi } from "../../utils/api";
+import { useDispatch } from "react-redux";
+import { PASSWORD_FORGOTTEN } from "../../services/constants";
 
 const ForgotPassword = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState({ email: "" });
   const history = useHistory();
   const onEmailChange = (e) => {
@@ -17,6 +20,7 @@ const ForgotPassword = () => {
   const pressSubmit = () => {
     newApi.resetPassword(email).then((res) => {
       if (res.success) {
+        dispatch({type:PASSWORD_FORGOTTEN})
         history.push({ pathname: "/reset-password" });
       } else {
         return Promise.reject(`Ошибка ${res.status}`);

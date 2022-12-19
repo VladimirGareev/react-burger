@@ -3,13 +3,25 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./reset-password.module.css";
 import { Link, useHistory } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
 import { newApi } from "../../utils/api";
+import { PASSWORD_RESTORED } from "../../services/constants";
 
 const ResetPassword = () => {
+
+  const passwordForgotten = useSelector((state)=> state.user.passwordForgotten);
+
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    if(!passwordForgotten){
+      history.push("/login")
+    }
+  },[])
+
   const [newPassword, setNewPassword] = useState({ password: "", token: "" });
 
   const history = useHistory();
@@ -21,6 +33,7 @@ const ResetPassword = () => {
     newApi.submitNewPassword(newPassword).then((res) => {
       if (res.success) {
         history.push({ pathname: "/login" });
+        dispatch({type: PASSWORD_RESTORED});
       } else {
         return Promise.reject(`Ошибка ${res.status}`);
       }
