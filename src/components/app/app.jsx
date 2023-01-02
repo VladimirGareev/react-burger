@@ -16,6 +16,8 @@ import { getUser } from "../../services/actions/user";
 import Orders from "../../pages/orders/orders";
 import { Ingredients } from "../../pages/ingredients/ingredients";
 import { getIngredients } from "../../services/actions/ingredients";
+import { Feed } from "../../pages/feed/feed";
+import { Order } from "../../pages/order/order";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -58,9 +60,15 @@ const App = () => {
           <Route path="/" exact>
             <Constructor />
           </Route>
+          <Route path="/feed" exact>
+          <Feed />
+          </Route>
         </Switch>
         <Route path="/ingredients/:id">
           <Ingredients />
+        </Route>
+         <Route path="/feed/:orderId">
+        <Order/>
         </Route>
       </DndProvider>
     </div>
