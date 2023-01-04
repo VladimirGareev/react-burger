@@ -1,4 +1,5 @@
 import { currentUrl } from "./data";
+import { getCookie } from "./cookie";
 
 class Api {
   constructor({ baseUrl }) {
@@ -12,13 +13,6 @@ class Api {
     return Promise.reject(`Ошибка ${res.status}`);
   }
 
-  // _checkResponsePassword (res) {
-  //   if (res.success) {
-  //     history.replace({pathname:'/reset-password'})
-  //   }
-  //   return Promise.reject(`Ошибка ${res.status}`)
-  // }
-
   getInfo() {
     return fetch(`${this.baseUrl}ingredients`).then(this._checkResponse);
   }
@@ -28,6 +22,7 @@ class Api {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: getCookie("accessToken"),
       },
       body: JSON.stringify({ ingredients: data }),
     }).then(this._checkResponse);

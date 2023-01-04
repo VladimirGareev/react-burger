@@ -1,20 +1,18 @@
 import Modal from "../../components/modal/modal";
-
 import { useHistory} from "react-router-dom";
+import { PrivateOrderDetails } from "../../components/private-order-details/private-order-details";
 
-import { FeedOrderDetails } from "../../components/feed-order-details/feed-order-details";
+export const UserOrderDetails = () => {
 
-export const Order = () => {
   const history = useHistory();
 
   const closeModal = () => {
-    history.push("/feed");
+    history.push("/profile/orders");
   };
 
-  return (
-     (
+  return ( (
       <Modal closeModal={closeModal} onOverlayClick={closeModal}>
-        <FeedOrderDetails />
+        <PrivateOrderDetails />
       </Modal>
     )
   );

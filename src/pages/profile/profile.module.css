@@ -29,5 +29,11 @@
 
 .buttonContainer {
   display: flex;
-  justify-content: flex-end;
+  margin-left: 170px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 890px;
 }

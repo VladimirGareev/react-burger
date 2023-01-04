@@ -1,7 +1,3 @@
-{
-  /*TODO файл полностью игнорируется lint во избежание появления ошибок от пустых якорных ссылок */
-}
-
 import {
   Logo,
   BurgerIcon,
@@ -29,6 +25,7 @@ function AppHeader() {
     path: "/profile/orders",
     strict: true,
     sensitive: true,
+    exact: true,
   });
 
   return (
@@ -50,10 +47,18 @@ function AppHeader() {
             </NavLink>
           </li>
           <li className="pt-4 pr-5 pb-4 pl-5 mr-2">
-            <a href="#" className={styles.link}>
-              <ListIcon type="secondary" />
+            <NavLink
+              to={"/feed"}
+              className={styles.link}
+              activeClassName={styles.active}
+            >
+              {orderMatch ? (
+                <ListIcon type="secondary" />
+              ) : (
+                <ListIcon type="primary" />
+              )}
               <p className="text text_type_main-default ml-2">Лента заказов</p>
-            </a>
+            </NavLink>
           </li>
         </ul>
         <Logo />

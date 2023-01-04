@@ -16,7 +16,6 @@ import {
   GET_USER_FAILED,
 } from "../constants";
 
-
 import {
   registerUser,
   loginUser,

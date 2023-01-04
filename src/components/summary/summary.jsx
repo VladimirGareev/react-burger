@@ -1,16 +1,16 @@
 import styles from "./summary.module.css";
 
-export const Summary = ({orders}) => {
-    const done=  orders.orders.filter((order) => order.status === "done");
-    const pending=  orders.orders.filter((order) => order.status === "pending");
-    const total = orders.total;
-    const totalToday = orders.totalToday
+export const Summary = ({ orders }) => {
+  const done = orders.orders.filter((order) => order.status === "done");
+  const pending = orders.orders.filter((order) => order.status === "pending");
+  const total = orders.total;
+  const totalToday = orders.totalToday;
 
-    return (
-        <div className={styles.summary}>
+  return (
+    <div className={styles.summary}>
       <div className={styles.status}>
         {done.length && (
-          <div >
+          <div>
             <h2 className="text text_type_main-medium mb-6">Готовы:</h2>
             <div className={styles.numbers}>
               <ul className={styles.list}>
@@ -74,21 +74,16 @@ export const Summary = ({orders}) => {
       </div>
       <div>
         <p className="text text_type_main-medium">Выполнено за все время:</p>
-        <span
-          className={`${styles.digits} text text_type_digits-large`}
-        >
+        <span className={`${styles.digits} text text_type_digits-large`}>
           {total}
         </span>
       </div>
       <div>
         <p className="text text_type_main-medium">Выполнено за сегодня:</p>
-        <span
-          className={`${styles.digits} text text_type_digits-large`}
-        >
+        <span className={`${styles.digits} text text_type_digits-large`}>
           {totalToday}
         </span>
       </div>
     </div>
-    )
-}
-      
+  );
+};

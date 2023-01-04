@@ -1,4 +1,4 @@
-import styles from "./feed-order-details.module.css";
+import styles from "./private-order-details.module.css";
 import { useSelector } from "react-redux";
 import {
   CurrencyIcon,
@@ -7,19 +7,23 @@ import {
 import { useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { connectAllWs} from "../../services/actions/web-socket";
+import { connectUserWs } from "../../services/actions/web-socket";
 import { getIngredients } from "../../services/actions/ingredients";
+import { getCookie } from "../../utils/cookie";
 
-export const FeedOrderDetails = () => {
+export const PrivateOrderDetails = () => {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.orders.public?.orders);
+  const orders = useSelector((state) => state.orders.personal?.orders);
   const ingredients = useSelector((state) => state.ingredients?.ingredients);
+
+  const token = getCookie("accessToken");
+  const accessToken = token.replace("Bearer ", "");
 
   useEffect(() => {
     if (!orders) {
-      dispatch(connectAllWs());
+      dispatch(connectUserWs(accessToken));
     }
-  }, [dispatch, orders]);
+  }, [dispatch, accessToken, orders]);
 
 
   useEffect(() => {
@@ -28,15 +32,13 @@ export const FeedOrderDetails = () => {
     }
   }, [dispatch, ingredients]);
 
-  const { orderId } = useParams();
+  const { userOrderId } = useParams();
 
-  const order = orders?.find((order) => order._id === orderId);
+  const order = orders?.find((order) => order._id === userOrderId);
 
   const location = useLocation();
 
   const background = location.state?.background;
-
-  
 
   const status = (order) => {
     switch (order.status) {
@@ -55,7 +57,6 @@ export const FeedOrderDetails = () => {
     }
   };
 
-  
   const selectedIngredients = order?.ingredients.map((ingredientID) => {
     return ingredients.find((item) => item._id === ingredientID);
   });
@@ -78,7 +79,6 @@ export const FeedOrderDetails = () => {
       return selectedIngredients;
     });
   }
-
 
   const price =
     selectedIngredients === undefined

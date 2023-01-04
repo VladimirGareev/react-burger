@@ -3,16 +3,12 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile.module.css";
-import { NavLink} from "react-router-dom";
-import { useState} from "react";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getUserLoggedOut,
-  updateUser,
-} from "../../services/actions/user";
+import { getUserLoggedOut, updateUser } from "../../services/actions/user";
 
 const Profile = () => {
-
   const dispatch = useDispatch();
   const userLogout = () => {
     dispatch(getUserLoggedOut());

@@ -4,11 +4,13 @@ import ingredients from "./ingredients";
 import ingredient from "./ingredient";
 import order from "./order";
 import user from "./user";
+import { orders } from "./web-socket";
 
 export const rootReducer = combineReducers({
   ingredients,
   constructorBurger,
   ingredient,
   order,
-  user, 
+  user,
+  orders,
 });

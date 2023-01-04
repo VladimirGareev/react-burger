@@ -44,7 +44,7 @@ export const getUserApi = () => {
 };
 
 export const updateUserData = (newData) => {
-  console.log(newData);
+
   return fetchWithRefresh(`${currentUrl}auth/user`, {
     method: "PATCH",
     headers: {

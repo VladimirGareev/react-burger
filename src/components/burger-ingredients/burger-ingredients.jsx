@@ -3,27 +3,20 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Ingredient from "../ingredients/ingredient";
 import styles from "./burger-ingredients.module.css";
 
-
 import { useInView } from "react-intersection-observer";
 
 import { useSelector } from "react-redux";
 
-
 import { Link, useLocation } from "react-router-dom";
 
 function BurgerIngredients() {
-
-
   const location = useLocation();
 
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
   const [current, setCurrent] = useState("bun");
 
-
-
   const selectedIngredients = useSelector((state) => state.constructorBurger);
-
 
   const countValue = (ingredient) => {
     if (ingredient.type !== "bun") {

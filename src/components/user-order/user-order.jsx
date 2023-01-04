@@ -1,4 +1,4 @@
-import styles from "./feed-order.module.css";
+import styles from "./user-order.module.css";
 import {
   FormattedDate,
   Counter,
@@ -6,7 +6,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
 
-export const FeedOrder = ({ order }) => {
+
+export const UserOrder = ({ order }) => {
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
   const selectedIngredients = order.ingredients.map((ingredientID) => {
@@ -42,6 +43,23 @@ export const FeedOrder = ({ order }) => {
           0
         );
 
+  const status = (order) => {
+    switch (order.status) {
+      case "done": {
+        return "Выполнен";
+      }
+      case "canceled": {
+        return "Отменен";
+      }
+      case "pending": {
+        return "Готовится";
+      }
+      default: {
+        return "не удалось получить статус";
+      }
+    }
+  };
+
   return (
     <div className={styles.order__container}>
       <div className={styles.order__numberanddate}>
@@ -52,8 +70,11 @@ export const FeedOrder = ({ order }) => {
         />
       </div>
       <p
-        className={`text text_type_main-medium ml-6 mb-6 mr-6 ${styles.order__name}`}
+        className={`text text_type_main-medium ml-6 mb-2 mr-6 ${styles.order__name}`}
       >{`${order.name}`}</p>
+      <p
+        className={`text text_type_main-default ml-6 mb-6 ${styles.textsmall}`}
+      >{`${status(order)}`}</p>
       <div className={styles.ingredients__container}>
         <ul className={`${styles.images} ml-6`}>
           {selectedIngredients[0] &&
