@@ -1,0 +1,52 @@
+.profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 120px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  justify-self: center;
+}
+
+.navLink {
+  display: block;
+  min-height: 46px;
+  margin-top: 18px;
+  text-decoration: none;
+}
+
+.text {
+  margin-top: 80px;
+}
+
+.active {
+  color: #fff;
+}
+
+.orders__container {
+  height: 70vh;
+  overflow-y: scroll;
+  margin-left: 48px;
+}
+
+.orders__container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.orders__container::-webkit-scrollbar-track {
+  background: #2f2f37;
+  height: 664px;
+}
+
+.orders__container::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  height: 492px;
+}
+.link {
+  text-decoration: none;
+  color: inherit;
+}

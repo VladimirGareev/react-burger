@@ -1,0 +1,90 @@
+.order__container {
+  display: flex;
+  flex-direction: column;
+  width: 830px;
+  border-radius: 40px;
+  background-color: #1c1c21;
+  text-decoration: none;
+  margin-bottom: 16px;
+  margin-right: 8px;
+}
+.order__numberanddate {
+  margin: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.order__name {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.images {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: space-between;
+}
+
+.iconContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  background-color: #1c1c21;
+  border: 2px solid;
+  border-color: rgba(76, 76, 255, 1);
+  margin-right: -16px;
+  box-sizing: border-box;
+}
+
+.image {
+  width: 112px;
+  height: 56px;
+  position: absolute;
+}
+
+.overlay {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #1c1c21;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0.4;
+}
+
+.hiddenCount {
+  z-index: 2;
+}
+
+.counter {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+.ingredients__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.price__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 24px;
+}
+
+.textsmall {
+  font-size: 16px;
+  color: #00cccc;
+}

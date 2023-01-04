@@ -1,6 +1,7 @@
 import { currentUrl } from "./data";
+import { getCookie } from "./cookie";
 
- class Api {
+class Api {
   constructor({ baseUrl }) {
     this.baseUrl = baseUrl;
   }
@@ -21,8 +22,29 @@ import { currentUrl } from "./data";
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: getCookie("accessToken"),
       },
       body: JSON.stringify({ ingredients: data }),
+    }).then(this._checkResponse);
+  }
+
+  resetPassword(email) {
+    return fetch(`${this.baseUrl}password-reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(email),
+    }).then(this._checkResponse);
+  }
+
+  submitNewPassword(data) {
+    return fetch(`${this.baseUrl}password-reset/reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     }).then(this._checkResponse);
   }
 }

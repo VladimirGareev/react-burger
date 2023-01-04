@@ -15,10 +15,15 @@ import {
 } from "../../services/constants";
 import { useDrop } from "react-dnd";
 import SelectedComponent from "../selected-component/selected-component";
+import { useHistory } from "react-router-dom";
 //TODO: align loader at the center of the screen
 const BurgerConstructor = () => {
+  const history = useHistory();
+
   const selectedIngredients = useSelector((state) => state.constructorBurger);
   const dispatch = useDispatch();
+
+  const userEmail = useSelector((state) => state.user.email);
 
   const bun = selectedIngredients.bun;
 
@@ -64,9 +69,13 @@ const BurgerConstructor = () => {
   };
 
   const openModal = () => {
-    bun && orderList.unshift(bun._id);
-    getOrder(orderList);
-    dispatch({ type: SET_ORDER_MODAL });
+    if (userEmail) {
+      bun && orderList.unshift(bun._id);
+      getOrder(orderList);
+      dispatch({ type: SET_ORDER_MODAL });
+    } else {
+      history.push("/login");
+    }
   };
 
   const closeModal = () => {
