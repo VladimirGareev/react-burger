@@ -1,0 +1,43 @@
+import styles from "./ingredient-details.module.css";
+import PropTypes from "prop-types";
+import { FunctionComponent } from "react";
+import { TIngredient } from "../../types/ingredients";
+
+type TModalIngredient = {
+  ingredient:TIngredient
+}
+
+const IngredientDetails:FunctionComponent<TModalIngredient> = ({ ingredient }) => {
+  return (
+    <div className={`${styles.container} mt-15 mb-15 ml-10 mr-10`}>
+      <h2 className={`${styles.heading} text text_type_main-large mb-3`}>
+        Детали ингредиента
+      </h2>
+      <img src={ingredient.image_large} alt={ingredient.name} />
+      <p className="text text_type_main-medium mt-4 mb-8">{ingredient.name}</p>
+      <ul className={styles.info}>
+        <li className={styles.item}>
+          <span className="text text_type_main-default">Калории,ккал</span>
+          <p className="text text_type_digits-default">{ingredient.calories}</p>
+        </li>
+        <li className={styles.item}>
+          <span className="text text_type_main-default">Белки, г</span>
+          <p className="text text_type_digits-default">{ingredient.proteins}</p>
+        </li>
+        <li className={styles.item}>
+          <span className="text text_type_main-default">Жиры, г</span>
+          <p className="text text_type_digits-default">{ingredient.fat}</p>
+        </li>
+        <li className={styles.item}>
+          <span className="text text_type_main-default">Углеводы, г</span>
+          <p className="text text_type_digits-default">
+            {ingredient.carbohydrates}
+          </p>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+
+export default IngredientDetails;

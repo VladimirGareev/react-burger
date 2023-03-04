@@ -1,0 +1,26 @@
+.login {
+  margin-top: 180px;
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+}
+.form {
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+}
+.additional {
+  flex-direction: row;
+  display: flex;
+  margin-top: 80px;
+}
+
+.text {
+  display: block;
+}

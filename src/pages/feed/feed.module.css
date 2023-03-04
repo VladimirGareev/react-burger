@@ -1,0 +1,42 @@
+.feed__section {
+    display: flex;
+    flex-direction: row;
+    min-width: 1240px;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    gap: 56px;
+    
+}
+
+.orders__section {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.orders__container {
+  height: 70vh;
+  overflow-y: scroll;
+  max-width: 600px;
+}
+
+
+.orders__container::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .orders__container::-webkit-scrollbar-track {
+    background: #2f2f37;
+    height: 664px;
+  }
+  
+  .orders__container::-webkit-scrollbar-thumb {
+    background-color: #8585ad;
+    height: 492px;
+  }
+  
+  .link {
+    text-decoration: none;
+    color: inherit;
+  }
