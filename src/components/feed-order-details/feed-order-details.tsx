@@ -11,6 +11,11 @@ import { connectAllWs} from "../../services/actions/web-socket";
 import { getIngredients } from "../../services/actions/ingredients";
 import { TWSOrder } from "../../types/wsTypes";
 
+import { Location } from "history";
+type TLocationState = {
+    background:Location;
+  }
+
 export const FeedOrderDetails:FunctionComponent = () => {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders.public?.orders);
@@ -33,10 +38,10 @@ export const FeedOrderDetails:FunctionComponent = () => {
 
   const order = orders?.find((order) => order._id === orderId);
 
-  const location = useLocation();
+  const location = useLocation<TLocationState>();
 
 
-  const background = (location.state as {background:string}).background;
+  const background = location.state?.background;
 
   
 
