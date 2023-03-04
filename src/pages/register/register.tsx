@@ -24,7 +24,8 @@ const Register:FunctionComponent = () => {
     }
   }, [userName, history]);
 
-  const onButtonClick = () => {
+  const onFormSubmit= (evt:FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
     dispatch(getUserRegistered(user));
   };
 
@@ -34,6 +35,7 @@ const Register:FunctionComponent = () => {
 
   return (
     <div className={styles.login}>
+      <form className={styles.form} onSubmit={onFormSubmit}>
       <h2>Регистрация</h2>
       <Input
         onChange={onUserChange}
@@ -58,13 +60,13 @@ const Register:FunctionComponent = () => {
         extraClass="mb-6"
       />
       <Button
-        htmlType="button"
+        htmlType="submit"
         type="primary"
         size="medium"
-        onClick={onButtonClick}
       >
         Зарегистрироваться
       </Button>
+      </form>
       <div className={styles.additional}>
         <p
           className={`${styles.text} ext text_type_main-default text_color_inactive`}

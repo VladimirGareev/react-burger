@@ -29,7 +29,8 @@ const ResetPassword:FunctionComponent = () => {
     setNewPassword({ ...newPassword, [(e.target as HTMLFormElement).name]: (e.target as HTMLFormElement).value });
   };
 
-  const pressSubmit = () => {
+  const pressSubmit = (e:FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     newApi.submitNewPassword(newPassword).then((res) => {
       if (res.success) {
         history.push({ pathname: "/login" });
@@ -42,6 +43,7 @@ const ResetPassword:FunctionComponent = () => {
 
   return (
     <div className={styles.login}>
+      <form onSubmit={pressSubmit} className={styles.form}>
       <h2>Восстановление пароля</h2>
       <PasswordInput
         onChange={onNewPasswordChange}
@@ -58,13 +60,13 @@ const ResetPassword:FunctionComponent = () => {
         extraClass="mb-6"
       />
       <Button
-        htmlType="button"
+        htmlType="submit"
         type="primary"
         size="medium"
-        onClick={pressSubmit}
       >
         Сохранить
       </Button>
+      </form>
       <div className={styles.additional}>
         <p
           className={`${styles.text} ext text_type_main-default text_color_inactive`}

@@ -24,7 +24,7 @@ const SelectedComponent:FunctionComponent<TSelectedComponent> = ({ ingredient, i
     (state) => state.constructorBurger.ingredients
   );
   const dispatch = useDispatch();
-  const ref = useRef(null) as any;
+  const ref = useRef<HTMLLIElement>(null);
   const id = ingredient.id;
   const [, drop] = useDrop({
     accept: "сonstructor",

@@ -17,7 +17,8 @@ const ForgotPassword:FunctionComponent = () => {
     setEmail({ ...email, [(e.target as HTMLFormElement).name]: (e.target as HTMLFormElement).value });
   };
 
-  const pressSubmit = () => {
+  const pressSubmit = (evt:FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
     newApi.resetPassword(email.email).then((res) => {
       if (res.success) {
         dispatch({type:PASSWORD_FORGOTTEN})
@@ -30,6 +31,7 @@ const ForgotPassword:FunctionComponent = () => {
 
   return (
     <div className={styles.login}>
+      <form className={styles.form} onSubmit={pressSubmit}>
       <h2>Восстановление пароля</h2>
       <EmailInput
         onChange={onEmailChange}
@@ -40,13 +42,13 @@ const ForgotPassword:FunctionComponent = () => {
         extraClass="mb-6"
       />
       <Button
-        htmlType="button"
+        htmlType="submit"
         type="primary"
         size="medium"
-        onClick={pressSubmit}
       >
         Восстановить
       </Button>
+      </form>
       <div className={styles.additional}>
         <p
           className={`${styles.text} ext text_type_main-default text_color_inactive`}

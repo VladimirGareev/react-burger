@@ -10,8 +10,8 @@ import ForgotPassword from "../../pages/forgot-password/forgot-password";
 import ResetPassword from "../../pages/reset-password/reset-password";
 import Profile from "../../pages/profile/profile";
 import { ProtectedRoute } from "../protected-route/protected-route";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useDispatch } from "../../types/store";
+import { FunctionComponent, useEffect } from "react";
 import { getUser } from "../../services/actions/user";
 import Orders from "../../pages/orders/orders";
 import { Ingredients } from "../../pages/ingredients/ingredients";
@@ -19,8 +19,12 @@ import { getIngredients } from "../../services/actions/ingredients";
 import { Feed } from "../../pages/feed/feed";
 import { Order } from "../../pages/order/order";
 import { UserOrderDetails } from "../../pages/user-order-details/user-order-details";
+import { Location } from "history";
+type TLocationState = {
+    background:Location;
+  }
 
-const App = () => {
+const App:FunctionComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,7 +35,7 @@ const App = () => {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  const location = useLocation();
+  const location = useLocation<TLocationState>();
 
   const background = location.state?.background;
 

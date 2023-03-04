@@ -44,7 +44,7 @@ export const Feed:FunctionComponent = () => {
         </div>
       </div>
 
-      {orders && <Summary orders={publicOrders} />}
+      {orders && <Summary orders={publicOrders!} />}
     </section>
   );
 };

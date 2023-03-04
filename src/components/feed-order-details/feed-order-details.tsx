@@ -9,7 +9,6 @@ import { useDispatch } from "../../types/store";
 import { FunctionComponent, useEffect } from "react";
 import { connectAllWs} from "../../services/actions/web-socket";
 import { getIngredients } from "../../services/actions/ingredients";
-import { TOrder } from "../../types/order";
 import { TWSOrder } from "../../types/wsTypes";
 
 export const FeedOrderDetails:FunctionComponent = () => {
@@ -30,11 +29,12 @@ export const FeedOrderDetails:FunctionComponent = () => {
     }
   }, [dispatch, ingredients]);
 
-  const { orderId } = useParams<any>();
+  const { orderId } = useParams<{orderId:string}>();
 
   const order = orders?.find((order) => order._id === orderId);
 
   const location = useLocation();
+
 
   const background = (location.state as {background:string}).background;
 
@@ -63,6 +63,7 @@ export const FeedOrderDetails:FunctionComponent = () => {
   });
 
   if (selectedIngredients) {
+    // eslint-disable-next-line
     selectedIngredients.map((ingredient, index1) => {if (ingredient){
       const countNumber = selectedIngredients.filter(
         (item) => item? item._id === ingredient._id : 0
@@ -83,12 +84,10 @@ export const FeedOrderDetails:FunctionComponent = () => {
 
 
   const price =
-    selectedIngredients === undefined
-      ? 0
-      : selectedIngredients.reduce(
+    selectedIngredients? selectedIngredients.reduce(
           (sum, ingredient) => ingredient&&ingredient.count? sum + ingredient.price * ingredient.count:0,
           0
-        );
+        ):0;
 
   return (order?
     (
@@ -112,6 +111,7 @@ export const FeedOrderDetails:FunctionComponent = () => {
         </p>
         <div className={styles.container__ingredients}>
           {selectedIngredients &&
+          // eslint-disable-next-line
             selectedIngredients.map((ingredient) => { if (ingredient) 
               return (
                 <div className={styles.ingredient} key={ingredient._id}>

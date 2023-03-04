@@ -38,8 +38,8 @@ const BurgerIngredients:FC=  () => {
   const sauceRef = useRef<HTMLHeadingElement>(null);
   const mainRef = useRef<HTMLHeadingElement>(null);
 
-  const setCurrentBun = (e:string) => {
-    setCurrent(e);
+  const setCurrentBun = (value:string) => {
+    setCurrent(value);
     if(bunRef&&bunRef.current&&bunRef.current.parentElement) {
     const offSetPosition =  
       bunRef.current.getBoundingClientRect().top -
@@ -51,8 +51,8 @@ const BurgerIngredients:FC=  () => {
   }
   };
 
-  const setCurrentSauce = (e:string) => {
-    setCurrent(e);
+  const setCurrentSauce = (value:string) => {
+    setCurrent(value);
     if(sauceRef&&sauceRef.current&&sauceRef.current.parentElement) {
     const offSetPosition =
       sauceRef.current.getBoundingClientRect().top -
@@ -63,8 +63,8 @@ const BurgerIngredients:FC=  () => {
     });
   }; }
 
-  const setCurrentMain = (e:string) => {
-    setCurrent(e);
+  const setCurrentMain = (value:string) => {
+    setCurrent(value);
     if(mainRef&&mainRef.current&&mainRef.current.parentElement){
     const offSetPosition =
       mainRef.current.getBoundingClientRect().top -

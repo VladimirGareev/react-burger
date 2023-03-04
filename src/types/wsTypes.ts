@@ -92,8 +92,8 @@ export type TWsActions =
 export type TWsState = {
     allOrdersConnection: boolean,
     userOrdersConnection: boolean,
-    public: TOrders,
-    personal: TOrders,
+    public: TOrders|null,
+    personal: TOrders|null,
     allOrdersError: boolean|string|null|Event,
     userOrdersError: boolean|string|null|Event,
 }

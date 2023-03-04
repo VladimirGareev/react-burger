@@ -1,14 +1,22 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import { Route, Redirect, useLocation } from "react-router-dom";
 import { useSelector } from "../../types/store";
 
+type TLocationState = {
+  from: {
+    pathname: string;
+  };
+};
+
 type TProtectedRoute = {
   onlyUnAuth?:boolean;
-  children:JSX.Element|JSX.Element[]
+  children:ReactNode
+  path:string;
+  exact:boolean;
 }
 
 export const ProtectedRoute:FunctionComponent<TProtectedRoute> = ({ onlyUnAuth, children, ...props }) => {
-  const location = useLocation() as any;
+  const location = useLocation<TLocationState>();
 
   const user = useSelector((state) => state.user);
 

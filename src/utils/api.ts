@@ -56,13 +56,13 @@ class Api {
     }).then(this._checkResponse<TOrderResponse>);
   }
 
-  resetPassword(email:string) {
+  resetPassword(data:string) {
     return fetch(`${this.baseUrl}password-reset`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(email),
+      body: JSON.stringify({email:data}),
     }).then(this._checkResponse<TMessage>);
   }
 

@@ -17,12 +17,14 @@ const Login:FunctionComponent = () => {
     setUser({ ...user, [(e.target as HTMLFormElement).name]: (e.target as HTMLFormElement).value });
   };
 
-  const onButtonClick = () => {
+  const onFormSubmit = (event:FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     dispatch(getUserLogged(user));
   };
 
   return (
     <div className={styles.login}>
+      <form className={styles.form} onSubmit={onFormSubmit}>
       <h2>Вход</h2>
       <EmailInput
         onChange={onUserChange}
@@ -40,13 +42,13 @@ const Login:FunctionComponent = () => {
         extraClass="mb-6"
       />
       <Button
-        htmlType="button"
+        htmlType="submit"
         type="primary"
         size="medium"
-        onClick={onButtonClick}
       >
         Войти
       </Button>
+      </form>
       <div className={styles.additional}>
         <p
           className={`${styles.text} text_type_main-default text_color_inactive`}

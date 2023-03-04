@@ -27,7 +27,7 @@ const BurgerConstructor:FC = () => {
 
   const userEmail = useSelector((state) => state.user.email);
 
-  const bun:TIngredient|null = selectedIngredients.bun;
+  const bun = selectedIngredients.bun;
 
   const [, dropTarget] = useDrop({
     accept: "ingredient",

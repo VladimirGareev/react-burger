@@ -29,7 +29,8 @@ const Profile:FunctionComponent = () => {
     setValue({ email: user.email, password: "", name: user.name });
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e:FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     dispatch(updateUser(value));
   };
 
@@ -67,6 +68,7 @@ const Profile:FunctionComponent = () => {
         </p>
       </div>
       <div className={styles.inputContainer}>
+        <form onSubmit={onSubmit}>
         <Input
           type={"text"}
           placeholder={"Имя"}
@@ -75,7 +77,6 @@ const Profile:FunctionComponent = () => {
           value={value.name}
           name={"name"}
           error={false}
-          //onIconClick={""}
           errorText={"Ошибка"}
           size={"default"}
           extraClass="mb-6"
@@ -116,14 +117,15 @@ const Profile:FunctionComponent = () => {
             Отмена
           </Button>
           <Button
-            htmlType="button"
+            htmlType="submit"
             type="primary"
             size="medium"
-            onClick={onSubmit}
+          //  onClick={onSubmit}
           >
             Сохранить
           </Button>
         </div>
+        </form>
       </div>
     </div>
   );
